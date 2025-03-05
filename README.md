@@ -30,7 +30,9 @@ The system provides **real-time environmental awareness and emergency exit detec
 
 4. **Data Preprocessing**
    - **Addressing Data Imbalance:** Emergency exit samples were augmented.
-   - **Transformations:** Normalization (1/255), resizing (224x224), horizontal/vertical flips, brightness adjustment, etc.
+   - **Transformations:**
+    - Binary Case: Normalization (1/255), resizing (224x224), horizontal/vertical flips
+    - Multiclass Case: Normalization (1/255), resizing (224x224), horizontal/vertical flips, Brightness adjustment(0.7~1.3)
 
 ---
 
@@ -39,8 +41,8 @@ The system provides **real-time environmental awareness and emergency exit detec
 ### 📊 Dataset Composition
 | Step  | Class                     | Train Data | Validation Data | Test Data |
 |------|---------------------------|------------|----------------|------------|
-| Step 1 | Emergency Exit vs. Other Signs (Binary Classification) | 600, 590  | 47, 36  | 10, 10  |
-| Step 2 | Exit Arrow, Exit Here, Non-Exit (Multiclass) | 1002, 1002, 590 | 25, 12, 36 | 37, 13, 324 |
+| Step 1 | Emergency Exit vs. Other Signs (Binary Classification) | 600 (from 100), 590  | 47, 36  | 10, 10  |
+| Step 2 | Exit Arrow, Exit Here, Non-Exit (Multiclass) | 1002 (from 65), 1002 (from 35), 590 | 25, 12, 36 | 37, 13, 324 |
 
 ### 🔢 Experiment Settings
 - **Batch Size:** 64
@@ -78,8 +80,11 @@ The system provides **real-time environmental awareness and emergency exit detec
 ---
 
 ## 🚀 Inference & Deployment
+- **Dataset:** 11 images collected manually
 - **Inference Speed:** ~140-150ms on average.
-- **Inference Performance:** Recognition accuracy drops when backgrounds include ceilings, walls, or windows.
+- **Inference Performance:**
+ - Binary Case: The signs are recognized well enough to be satisfied.
+ - Multiclass Case: Recognition accuracy drops when backgrounds include ceilings, walls, or windows.
 
 ---
 
