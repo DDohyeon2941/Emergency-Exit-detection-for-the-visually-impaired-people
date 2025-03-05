@@ -23,6 +23,12 @@ This project aims to develop an **AI-powered emergency exit detection system** t
 - Provides **real-time environmental awareness** for **safe evacuation**.  
 - Uses **MobileNetV2** to ensure **fast and lightweight detection** for deployment on **mobile devices**.
 
+## 🏗 System Architecture
+
+The following diagram illustrates the model conversion and deployment process:
+
+![System Architecture](./images/image.png)
+
 ---
 
 ## ⚙️ Methodology
