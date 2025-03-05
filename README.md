@@ -3,6 +3,13 @@
 
 ## 🔍 Introduction
 
+### Team Project in IOT @Seoultech
+Prof. Jin Woo Jeong
+
+Saerom Lee (nrdk@ds.seoultech.ac.kr), Dohyeon Lee (skypo1000@ds.seoultech.ac.kr) in Department of Data Science @Seoultech
+This repository contains the code for the team project in IOT at SeoulTech lectured by Prof. Jin Woo Jeong.
+
+
 ### 📌 Motivation
 Visually impaired individuals face challenges in identifying emergency exit signs. In workplace environments, various obstacles such as doorplates, nameplates, and signboards can resemble exit signs, making emergency evacuation difficult and unsafe.
 
