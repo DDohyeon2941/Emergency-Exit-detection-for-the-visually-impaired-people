@@ -1,49 +1,60 @@
- 
 # Emergency Exit Detection for Visually Impaired People
 
 ## 🔍 Introduction
 
-### Team Project in IOT @Seoultech
-Prof. Jin Woo Jeong
+### Team Project in IoT @SeoulTech  
+**Prof. Jin Woo Jeong**  
 
-Saerom Lee (nrdk@ds.seoultech.ac.kr), Dohyeon Lee (skypo1000@ds.seoultech.ac.kr) in Department of Data Science @Seoultech
-This repository contains the code for the team project in IOT at SeoulTech lectured by Prof. Jin Woo Jeong.
+**Saerom Lee** (nrdk@ds.seoultech.ac.kr), **Dohyeon Lee** (skypo1000@ds.seoultech.ac.kr)  
+Department of Data Science @SeoulTech  
 
+This repository contains the source code for the **Emergency Exit Detection for Visually Impaired People** project, conducted as part of an IoT course at **Seoul National University of Science and Technology (SeoulTech)**.
 
 ### 📌 Motivation
-Visually impaired individuals face challenges in identifying emergency exit signs. In workplace environments, various obstacles such as doorplates, nameplates, and signboards can resemble exit signs, making emergency evacuation difficult and unsafe.
+According to the **World Health Organization (WHO)**, over **2.2 billion people** worldwide suffer from some form of visual impairment. Studies show that over **80% of information intake** is visual, making visually impaired individuals highly dependent on assistive technologies.  
+
+Emergency evacuation methods rely heavily on **visual cues**, such as **bright green exit signs**, which are **inaccessible** to visually impaired individuals. In emergencies such as earthquakes and fires, **blind individuals struggle to locate exits**, making traditional evacuation methods **inadequate for their needs**.
+
+While **object detection technologies** have been widely developed for **autonomous vehicles and general object recognition**, very few systems focus on detecting **indoor emergency exit signs**. This project **addresses this gap** by proposing a **real-time emergency exit detection system**.
 
 ### 🎯 Purpose
-This project aims to develop an **effective emergency exit detection system** for visually impaired people.  
-The system provides **real-time environmental awareness and emergency exit detection**, assisting visually impaired individuals in navigating unfamiliar spaces safely.
+This project aims to develop an **AI-powered emergency exit detection system** to assist visually impaired individuals in **navigating indoor spaces safely**. The system:  
+- Detects **emergency exit signs** using **deep learning-based object detection**.  
+- Provides **real-time environmental awareness** for **safe evacuation**.  
+- Uses **MobileNetV2** to ensure **fast and lightweight detection** for deployment on **mobile devices**.
 
 ---
 
-## ⚙️ Method
+## ⚙️ Methodology
 
-### 🏗 Process
-1. **Emergency Exit Detection Model Training**
-   - Transfer Learning based on a **pretrained model**.
-   - **MobileNet_V2** as the backbone (pretrained on ImageNet).
-   - Retrained with a **custom indoor dataset** for emergency exit detection.
+### 🏗 System Overview
+1. **Emergency Exit Detection Model Training**  
+   - Utilizes **Transfer Learning** based on a **pretrained model**.
+   - **MobileNetV2** is used as the backbone model (pretrained on **ImageNet**).
+   - The model is fine-tuned with **a custom indoor dataset** for emergency exit detection.
 
-2. **Dataset**
-   - **Indoor Sign Dataset (ISD)** and **Indoor Object Detection Dataset** were utilized.
-   - Constructed a dataset containing emergency exit signs and other indoor signs.
+2. **Dataset Sources**
+   - **Indoor Sign Dataset (ISD)**: Contains emergency exit and general indoor signage.
+   - **Indoor Object Detection Dataset (IODD)**: Indoor object dataset for training robust models.
+   - **Custom Images**: 21 images collected manually for additional testing.
 
-3. **Experiment Design**
-   - **Binary Classification:** Emergency Exit vs. Other Signs.
-   - **Multiclass Classification:** Categorizing emergency exits (Exit, Directional Signs, etc.).
+3. **Classification Approach**
+   - **Binary Classification**: Distinguishes between emergency exits and other signs.
+   - **Multiclass Classification**: Further classifies emergency exits into subcategories:
+     - **Exit Arrow** (with directional indicators)
+     - **Exit Here** (no direction)
+     - **Non-Exit**
 
-4. **Data Preprocessing**
-   - **Addressing Data Imbalance:** Emergency exit samples were augmented.
-   - **Transformations:**
-    - Binary Case: Normalization (1/255), resizing (224x224), horizontal/vertical flips
-    - Multiclass Case: Normalization (1/255), resizing (224x224), horizontal/vertical flips, Brightness adjustment(0.7~1.3)
+4. **Data Preprocessing & Augmentation**
+   - **Normalization:** Pixel values scaled to **1/255**.
+   - **Resizing:** Images resized to **224x224**.
+   - **Augmentations:**
+     - **Binary Classification:** Horizontal/Vertical flips.
+     - **Multiclass Classification:** Horizontal/Vertical flips, Brightness adjustments (0.7~1.3).
 
 ---
 
-## 🧪 Experiment
+## 🧪 Experiment Design
 
 ### 📊 Dataset Composition
 | Step  | Class                     | Train Data | Validation Data | Test Data |
@@ -51,24 +62,24 @@ The system provides **real-time environmental awareness and emergency exit detec
 | Step 1 | Emergency Exit vs. Other Signs (Binary Classification) | 600 (from 100), 590  | 47, 36  | 10, 10  |
 | Step 2 | Exit Arrow, Exit Here, Non-Exit (Multiclass) | 1002 (from 65), 1002 (from 35), 590 | 25, 12, 36 | 37, 13, 324 |
 
-### 🔢 Experiment Settings
+### 🔢 Model Training Settings
 - **Batch Size:** 64
 - **Epochs:** 20
-- **Evaluation Metric:** AUROC
-- **Early Stopping:** Stops training if validation loss increases for 3 consecutive epochs.
+- **Evaluation Metric:** **AUROC**
+- **Early Stopping:** Stops training if validation loss increases for **3 consecutive epochs**.
 
 ---
 
 ## 📈 Results
 
 ### 🎯 Model Performance
-- **Step 1 (Binary Classification: Emergency Exit vs. Other Signs)**
-  - AUROC (Validation Data): **0.95**
-  - Continuous decrease in loss and increase in AUROC.
+- **Step 1 (Binary Classification)**
+  - **AUROC (Validation Data):** **0.95**
+  - Loss **decreased**, AUROC **increased** consistently.
 
-- **Step 2 (Multiclass Classification: Exit Arrow, Exit Here, Non-Exit)**
-  - AUROC (Validation Data): **0.9538**
-  - Loss increased, AUROC decreased → Requires more data.
+- **Step 2 (Multiclass Classification)**
+  - **AUROC (Validation Data):** **0.9538**
+  - Loss **increased**, AUROC **decreased** → Requires **more data**.
 
 ### 🔍 Model Prediction Performance (Confusion Matrix)
 #### Step 1 (Binary Classification)
@@ -87,17 +98,24 @@ The system provides **real-time environmental awareness and emergency exit detec
 ---
 
 ## 🚀 Inference & Deployment
-- **Dataset:** 11 images collected manually
-- **Inference Speed:** ~140-150ms on average.
-- **Inference Performance:**
- - Binary Case: The signs are recognized well enough to be satisfied.
- - Multiclass Case: Recognition accuracy drops when backgrounds include ceilings, walls, or windows.
+- **Dataset:** 11 manually collected images.
+- **Inference Speed:** ~140-150ms per image.
+- **Inference Results:**
+  - **Binary Classification:** Recognizes emergency exit signs **effectively**.
+  - **Multiclass Classification:** Performance drops **if backgrounds include ceilings, walls, or windows**.
 
 ---
 
 ## 🔮 Future Work
-- **Incorporating exit sign directionality** → To improve route guidance.
-- **Expanding dataset** → To mitigate class imbalance.
-- **Deploying lightweight models** → For mobile and embedded applications.
+- **Incorporating exit sign directionality** → Improve route guidance.  
+- **Expanding dataset** → Mitigate data imbalance.  
+- **Deploying lightweight models** → Adaptation for **mobile devices**.  
 
 ---
+## 📜 References
+- World Health Organization (WHO), "Visual Impairment and Blindness," 2021.
+- M. Sandler et al., "MobileNetV2: Inverted Residuals and Linear Bottlenecks," CVPR, 2018.
+- J. L. Almeida et al., "Indoor Sign Dataset (ISD): An Overview and Baseline Evaluation," VISAPP, 2019.
+- B. Adhikari et al., "Faster bounding box annotation for object detection in indoor scenes," EUVIP, 2018.
+- S. Chen et al., "Emergency Exit Detection for Visually Impaired People Using YOLOv5," IEEE, 2022.
+
